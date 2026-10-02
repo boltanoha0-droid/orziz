@@ -20,7 +20,7 @@ export default function Hero() {
 
       <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-16" style={{ lineHeight: '2.2' }}>
-          .خالد. راقٍ. أصيل
+          .خالِد. راقٍ. أصيلْ
         </h1>
 
         <p className="text-lg md:text-2xl text-white font-light" style={{ lineHeight: '2.4' }}>
