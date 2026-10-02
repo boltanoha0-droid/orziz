@@ -1,7 +1,10 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
+import { Star, Home } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { products } from '../data/products';
 import { Product } from '../types/product';
 import WhatsAppButton from '../components/WhatsAppButton';
+import StoryModal, { StoryGroup } from '../components/StoryModal';
 
 /* ---------- Cart Utilities ---------- */
 
@@ -405,12 +408,88 @@ function CartBar({ items }: { items: CartItem[] }) {
   );
 }
 
+/* ---------- Highlights Header ---------- */
+
+const reviewsStory: StoryGroup = {
+  id: 'reviews',
+  title: 'آراء',
+  slides: [
+    { image: '/rev1.jpg' },
+    { image: '/rev2.jpg' },
+    { image: '/rev3.jpg' },
+    { image: '/rev4.jpg' },
+    { image: '/rev5.jpg' },
+    { image: '/rev6.jpg' },
+    { image: '/rev7.jpg' },
+    { image: '/rev8.jpg' },
+    { image: '/rev9.jpg' },
+    { image: '/rev10.jpg' },
+    { image: '/rev11.jpg' },
+    { image: '/rev12.jpg' },
+  ],
+};
+
+interface HeaderCircleProps {
+  icon: LucideIcon;
+  label: string;
+  onClick: () => void;
+}
+
+function HeaderCircle({ icon: Icon, label, onClick }: HeaderCircleProps) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex flex-col items-center gap-2 group"
+      style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+    >
+      <div className="p-1.5">
+        <div
+          className="relative rounded-full transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+          style={{
+            width: '72px',
+            height: '72px',
+            padding: '3px',
+            background: '#243247',
+            border: '2px solid #e7ddcc',
+            boxShadow: '0 4px 18px rgba(36, 50, 71, 0.18)',
+          }}
+        >
+          <div
+            className="w-full h-full rounded-full flex items-center justify-center transition-all duration-300"
+            style={{
+              background: '#243247',
+              border: '1px solid rgba(231, 221, 204, 0.25)',
+            }}
+          >
+            <Icon
+              size={22}
+              className="transition-transform duration-300 group-hover:scale-110"
+              style={{ color: '#e7ddcc', opacity: 0.9 }}
+            />
+          </div>
+          <div
+            className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ boxShadow: '0 0 24px rgba(231, 221, 204, 0.3), 0 0 48px rgba(36, 50, 71, 0.12)' }}
+          />
+        </div>
+      </div>
+      <span
+        className="text-xs sm:text-sm font-semibold transition-all duration-300 group-hover:opacity-100"
+        style={{ fontFamily: "'Amiri', serif", color: '#e7ddcc', opacity: 0.75, letterSpacing: '0.03em' }}
+      >
+        {label}
+      </span>
+    </button>
+  );
+}
+
 /* ---------- Main Page ---------- */
 
 export default function BraceletsPage() {
   const collectionRef = useRef<HTMLDivElement>(null);
   const bracelets = products.filter((p) => p.collection === 'bracelets');
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [storyModalOpen, setStoryModalOpen] = useState(false);
 
   useEffect(() => {
     setCartItems(loadCart());
@@ -479,6 +558,29 @@ export default function BraceletsPage() {
       style={{ fontFamily: "'Amiri', serif" }}
       dir="rtl"
     >
+      {/* HIGHLIGHTS HEADER */}
+      <header
+        className="sticky top-0 z-50"
+        style={{
+          background: 'rgba(36, 50, 71, 0.92)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(231, 221, 204, 0.12)',
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          <HeaderCircle
+            icon={Star}
+            label="آراء"
+            onClick={() => setStoryModalOpen(true)}
+          />
+          <HeaderCircle
+            icon={Home}
+            label="أُورزي ١٩٩٨"
+            onClick={() => { window.location.href = '/'; }}
+          />
+        </div>
+      </header>
 
       {/* HERO */}
       <section
@@ -794,6 +896,13 @@ export default function BraceletsPage() {
       </footer>
       <WhatsAppButton />
       <CartBar items={cartItems} />
+
+      <StoryModal
+        stories={[reviewsStory]}
+        initialStoryIndex={0}
+        isOpen={storyModalOpen}
+        onClose={() => setStoryModalOpen(false)}
+      />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Star, Info, Clock, Sparkles, Crown, Diamond } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 export interface HighlightItem {
   id: string;
@@ -9,14 +10,21 @@ export interface HighlightItem {
   link?: string;
 }
 
-const highlights: HighlightItem[] = [
+const storyHighlights: HighlightItem[] = [
   { id: 'reviews', title: 'آراء', icon: 'reviews', action: 'modal', storyId: 'reviews' },
   { id: 'info', title: 'أُورزي ١٩٩٨', icon: 'info', action: 'modal', storyId: 'info' },
-  { id: 'products', title: 'منتجات حالية', icon: 'products', action: 'link', link: '/bracelets.html' },
   { id: 'upcoming', title: 'إصدارات قادمة', icon: 'upcoming', action: 'modal', storyId: 'upcoming' },
 ];
 
-const iconMap = {
+const productHighlight: HighlightItem = {
+  id: 'products',
+  title: 'منتجات حالية',
+  icon: 'products',
+  action: 'link',
+  link: '/bracelets.html',
+};
+
+const iconMap: Record<HighlightItem['icon'], LucideIcon> = {
   reviews: Star,
   info: Info,
   products: Clock,
@@ -42,6 +50,65 @@ export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProp
     }
   };
 
+  const renderCircle = (h: HighlightItem) => {
+    const Icon = iconMap[h.icon];
+    return (
+      <button
+        key={h.id}
+        onClick={() => handleClick(h)}
+        className="flex flex-col items-center gap-4 group flex-shrink-0"
+        style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+      >
+        <div className="p-2">
+          <div
+            className="relative rounded-full transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+            style={{
+              width: '130px',
+              height: '130px',
+              padding: '4px',
+              background: '#243247',
+              border: '2px solid #e7ddcc',
+              boxShadow: '0 6px 24px rgba(36, 50, 71, 0.18)',
+            }}
+          >
+            <div
+              className="w-full h-full rounded-full flex items-center justify-center transition-all duration-300"
+              style={{
+                background: '#243247',
+                border: '1px solid rgba(231, 221, 204, 0.25)',
+              }}
+            >
+              <Icon
+                size={38}
+                className="transition-transform duration-300 group-hover:scale-110"
+                style={{ color: '#e7ddcc', opacity: 0.9 }}
+              />
+            </div>
+
+            <div
+              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                boxShadow: '0 0 32px rgba(231, 221, 204, 0.3), 0 0 60px rgba(36, 50, 71, 0.12)',
+              }}
+            />
+          </div>
+        </div>
+
+        <span
+          className="text-sm md:text-base font-semibold transition-all duration-300 group-hover:opacity-100"
+          style={{
+            fontFamily: "'Amiri', serif",
+            color: '#243247',
+            opacity: 0.85,
+            letterSpacing: '0.03em',
+          }}
+        >
+          {h.title}
+        </span>
+      </button>
+    );
+  };
+
   return (
     <section
       className="relative pt-32 md:pt-48 pb-28 md:pb-40"
@@ -51,7 +118,6 @@ export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProp
       }}
       dir="rtl"
     >
-      {/* Floating background icons */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {floatingIcons.map(({ Icon, top, left, right, size, delay }, i) => (
           <div
@@ -72,78 +138,17 @@ export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProp
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4">
-        {/* Horizontal scroll container with proper vertical padding to prevent scale clipping */}
         <div
-          className="flex gap-8 md:gap-16 justify-center items-start overflow-x-auto py-8 scroll-smooth scrollbar-hide"
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
-          }}
+          className="flex items-start justify-between py-8 gap-6 md:gap-12"
         >
-          <div className="flex gap-8 md:gap-16 justify-center items-start py-2" style={{ minWidth: 'min-content' }}>
-            {highlights.map((h) => {
-              const Icon = iconMap[h.icon];
-              return (
-                <button
-                  key={h.id}
-                  onClick={() => handleClick(h)}
-                  className="flex flex-col items-center gap-4 group flex-shrink-0"
-                  style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
-                >
-                  {/* Circle wrapper with padding space */}
-                  <div className="p-2">
-                    <div
-                      className="relative rounded-full transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
-                      style={{
-                        width: '116px',
-                        height: '116px',
-                        padding: '4px',
-                        background: '#243247',
-                        border: '2px solid #e7ddcc',
-                        boxShadow: '0 6px 24px rgba(36, 50, 71, 0.18)',
-                      }}
-                    >
-                      {/* Inner circle */}
-                      <div
-                        className="w-full h-full rounded-full flex items-center justify-center transition-all duration-300"
-                        style={{
-                          background: '#243247',
-                          border: '1px solid rgba(231, 221, 204, 0.25)',
-                        }}
-                      >
-                        <Icon
-                          size={34}
-                          className="transition-transform duration-300 group-hover:scale-110"
-                          style={{ color: '#e7ddcc', opacity: 0.9 }}
-                        />
-                      </div>
+          {/* Right side (RTL): 3 story circles */}
+          <div className="flex gap-6 md:gap-12 items-start py-2">
+            {storyHighlights.map(renderCircle)}
+          </div>
 
-                      {/* Hover glow */}
-                      <div
-                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{
-                          boxShadow: '0 0 32px rgba(231, 221, 204, 0.3), 0 0 60px rgba(36, 50, 71, 0.12)',
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Label */}
-                  <span
-                    className="text-sm md:text-base font-semibold transition-all duration-300 group-hover:opacity-100"
-                    style={{
-                      fontFamily: "'Amiri', serif",
-                      color: '#243247',
-                      opacity: 0.85,
-                      letterSpacing: '0.03em',
-                    }}
-                  >
-                    {h.title}
-                  </span>
-                </button>
-              );
-            })}
+          {/* Left side (RTL): product circle */}
+          <div className="flex items-start py-2">
+            {renderCircle(productHighlight)}
           </div>
         </div>
       </div>
