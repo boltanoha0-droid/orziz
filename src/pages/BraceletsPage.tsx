@@ -439,43 +439,43 @@ function HeaderCircle({ icon: Icon, label, onClick }: HeaderCircleProps) {
   return (
     <button
       onClick={onClick}
-      className="flex flex-col items-center gap-2 group"
+      className="flex flex-col items-center gap-1.5 group"
       style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
     >
-      <div className="p-1.5">
+      <div className="p-1">
         <div
-          className="relative rounded-full transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+          className="relative rounded-full transition-all duration-300 group-hover:scale-105"
           style={{
-            width: '72px',
-            height: '72px',
-            padding: '3px',
+            width: '60px',
+            height: '60px',
+            padding: '2px',
             background: '#243247',
-            border: '2px solid #e7ddcc',
-            boxShadow: '0 4px 18px rgba(36, 50, 71, 0.18)',
+            border: '1.5px solid #e7ddcc',
+            boxShadow: '0 2px 12px rgba(36, 50, 71, 0.12)',
           }}
         >
           <div
             className="w-full h-full rounded-full flex items-center justify-center transition-all duration-300"
             style={{
               background: '#243247',
-              border: '1px solid rgba(231, 221, 204, 0.25)',
+              border: '1px solid rgba(231, 221, 204, 0.2)',
             }}
           >
             <Icon
-              size={22}
+              size={18}
               className="transition-transform duration-300 group-hover:scale-110"
               style={{ color: '#e7ddcc', opacity: 0.9 }}
             />
           </div>
           <div
             className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{ boxShadow: '0 0 24px rgba(231, 221, 204, 0.3), 0 0 48px rgba(36, 50, 71, 0.12)' }}
+            style={{ boxShadow: '0 0 16px rgba(231, 221, 204, 0.25), 0 0 32px rgba(36, 50, 71, 0.08)' }}
           />
         </div>
       </div>
       <span
-        className="text-xs sm:text-sm font-semibold transition-all duration-300 group-hover:opacity-100"
-        style={{ fontFamily: "'Amiri', serif", color: '#e7ddcc', opacity: 0.75, letterSpacing: '0.03em' }}
+        className="text-[0.7rem] sm:text-xs font-semibold transition-all duration-300 group-hover:opacity-100"
+        style={{ fontFamily: "'Amiri', serif", color: '#243247', opacity: 0.6, letterSpacing: '0.03em' }}
       >
         {label}
       </span>
@@ -558,127 +558,33 @@ export default function BraceletsPage() {
       style={{ fontFamily: "'Amiri', serif" }}
       dir="rtl"
     >
-      {/* HIGHLIGHTS HEADER */}
+      {/* MINIMAL NAV HEADER */}
       <header
         className="sticky top-0 z-50"
         style={{
-          background: 'rgba(36, 50, 71, 0.92)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(231, 221, 204, 0.12)',
+          background: 'rgba(240, 235, 224, 0.85)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          borderBottom: '1px solid rgba(36, 50, 71, 0.08)',
         }}
       >
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-          <HeaderCircle
-            icon={Star}
-            label="آراء"
-            onClick={() => setStoryModalOpen(true)}
-          />
+        <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+          {/* RTL: Home on the right, Reviews on the left */}
           <HeaderCircle
             icon={Home}
             label="أُورزي ١٩٩٨"
             onClick={() => { window.location.href = '/'; }}
           />
+          <HeaderCircle
+            icon={Star}
+            label="آراء"
+            onClick={() => setStoryModalOpen(true)}
+          />
         </div>
       </header>
 
-      {/* HERO */}
-      <section
-        className="relative min-h-screen flex items-center overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #f5f0e8 0%, #e7ddcc 40%, #f0ebe0 100%)' }}
-      >
-        <div className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute top-0 left-0 w-full h-full opacity-5"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle at 20% 50%, #243247 1px, transparent 1px), radial-gradient(circle at 80% 20%, #243247 1px, transparent 1px)',
-              backgroundSize: '80px 80px',
-            }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1 flex flex-col gap-8">
-            <div>
-              <p
-                className="text-xs tracking-widest uppercase text-[#243247] mb-4 opacity-60"
-                style={{ fontFamily: "'amiri', serif", letterSpacing: '0.25em' }}
-              >
-                التشكيلة الأساسية
-              </p>
-              <h1
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#243247] leading-tight mb-6"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
-                ORZI
-                <br />
-                <span className="text-3xl md:text-4xl font-normal opacity-80">Heritage Bracelets</span>
-              </h1>
-              <p className="text-xl text-[#243247] opacity-75 leading-relaxed mb-3" style={{ fontFamily: "'Amiri', serif" }}>
-                من أصالة الماضي إلى معصمك
-              </p>
-              <p className="text-base text-[#243247] opacity-55 leading-loose max-w-md" style={{ fontFamily: "'Amiri', serif" }}>
-                ٨ تصاميم. فلسفة واحدة. حضور لا يُنسى.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="/order-bracelets.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-10 py-4 bg-[#243247] text-[#e7ddcc] font-semibold transition-all duration-300 hover:bg-[#1a2b3c] hover:shadow-xl hover:-translate-y-0.5 inline-block text-center"
-                style={{ fontFamily: "'amiri', serif", letterSpacing: '0.1em', fontSize: '0.85rem' }}
-              >
-                أُطلب قطعتك
-              </a>
-              <a
-                href="/"
-                className="px-10 py-4 border border-[#243247] text-[#243247] font-semibold transition-all duration-300 hover:bg-[#243247] hover:text-[#e7ddcc] hover:opacity-90 inline-block text-center"
-                style={{ fontFamily: "'Cinzel', serif", letterSpacing: '0.15em', fontSize: '0.85rem' }}
-              >
-                ORZI 1998
-              </a>
-            </div>
-          </div>
-
-          <div className="order-1 md:order-2 relative">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="col-span-2 rounded-sm overflow-hidden" style={{ aspectRatio: '16/9' }}>
-                <img
-                  src="/aurelia1.jpg"
-                  alt="ORZI Heritage Bracelets"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <div className="rounded-sm overflow-hidden" style={{ aspectRatio: '1/1' }}>
-                <img
-                  src="/solea1.jpg"
-                  alt="AURA Bracelet"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <div className="rounded-sm overflow-hidden" style={{ aspectRatio: '1/1' }}>
-                <img
-                  src="/kairo1.jpg"
-                  alt="SOPHIA Bracelet"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-          <svg className="w-6 h-6 text-[#243247] opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </section>
-
       {/* COLLECTION SHOWCASE */}
-      <section ref={collectionRef} className="py-24 md:py-32 bg-white">
+      <section ref={collectionRef} className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <div className="text-center mb-20">
             <p
