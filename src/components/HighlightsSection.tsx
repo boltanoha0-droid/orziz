@@ -63,8 +63,8 @@ export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProp
           <div
             className="relative rounded-full transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
             style={{
-              width: '130px',
-              height: '130px',
+              width: '144px',
+              height: '144px',
               padding: '4px',
               background: '#243247',
               border: '2px solid #e7ddcc',
@@ -79,7 +79,7 @@ export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProp
               }}
             >
               <Icon
-                size={38}
+                size={42}
                 className="transition-transform duration-300 group-hover:scale-110"
                 style={{ color: '#e7ddcc', opacity: 0.9 }}
               />
@@ -95,7 +95,7 @@ export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProp
         </div>
 
         <span
-          className="text-sm md:text-base font-semibold transition-all duration-300 group-hover:opacity-100"
+          className="text-base md:text-lg font-semibold transition-all duration-300 group-hover:opacity-100"
           style={{
             fontFamily: "'Amiri', serif",
             color: '#243247',
@@ -138,9 +138,7 @@ export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProp
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4">
-        <div
-          className="flex items-start justify-between py-8 gap-6 md:gap-12"
-        >
+        <div className="flex items-start justify-between py-8 gap-6 md:gap-12">
           {/* Right side (RTL): 3 story circles */}
           <div className="flex gap-6 md:gap-12 items-start py-2">
             {storyHighlights.map(renderCircle)}
