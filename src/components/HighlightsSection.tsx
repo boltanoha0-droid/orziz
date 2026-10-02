@@ -12,7 +12,7 @@ export interface HighlightItem {
 const highlights: HighlightItem[] = [
   { id: 'reviews', title: 'آراء', icon: 'reviews', action: 'modal', storyId: 'reviews' },
   { id: 'info', title: 'أُورزي ١٩٩٨', icon: 'info', action: 'modal', storyId: 'info' },
-  { id: 'products', title: 'منتجات حالية', icon: 'products', action: 'link', link: 'https://www.orzi-1998.shop/bracelets' },
+  { id: 'products', title: 'منتجات حالية', icon: 'products', action: 'link', link: '/bracelets.html' },
   { id: 'upcoming', title: 'إصدارات قادمة', icon: 'upcoming', action: 'modal', storyId: 'upcoming' },
 ];
 
@@ -36,7 +36,7 @@ interface HighlightsSectionProps {
 export default function HighlightsSection({ onStoryOpen }: HighlightsSectionProps) {
   const handleClick = (h: HighlightItem) => {
     if (h.action === 'link' && h.link) {
-      window.open(h.link, '_blank', 'noopener,noreferrer');
+      window.location.href = h.link;
     } else if (h.action === 'modal' && h.storyId) {
       onStoryOpen(h.storyId);
     }
