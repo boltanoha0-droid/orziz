@@ -24,7 +24,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-lg md:text-2xl text-white font-light" style={{ lineHeight: '2.4' }}>
-          .من أصالة ورقيّ الماضي
+          من أصالة ورقيّ الماضي
         </p>
       </div>
 
